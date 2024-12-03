@@ -14,6 +14,9 @@ const io = new Server(server, {
 
 app.use(express.json());
 app.use('/api', routes);
+app.use('/health', (req, res) => {
+    res.json({status: 'up'}).status(200);
+});
 
 const locationService = new LocationService(io);
 io.on('connection', (socket) => locationService.handleConnection(socket));
